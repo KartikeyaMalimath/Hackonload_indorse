@@ -1,9 +1,87 @@
+@import "nib";
+
 body {
-    background-image: url("https://media-cdn.tripadvisor.com/media/photo-s/0e/b3/e4/26/shuttle-bus-stop-at-marinoa.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-	-webkit-box-sizing: border-box;
-	-webkit-text-size-adjust: 100%;
-	-webkit-box-orient: vertical;
-	overflow-x: hidden;
+    background: #0f0c29;
+    background-image: -webkit-linear-gradient(to left, #24243e, #302b63, #0f0c29);
+    background-image: linear-gradient(to left, #24243e, #302b63, #0f0c29); 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    padding-top: 80px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardcontain {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    -webkit-perspective: 800px;
+    -ms-perspective: 800px;
+    perspective: 800px;
+    border-radius: 4px;
+    margin-top: 50px;
+    display: -ms-flexbox;
+    display: box;
+    display: flex;
+    -o-box-orient: vertical;
+    flex-direction: column;
+    -o-box-pack: center;
+    justify-content: center;
+    -o-box-align: center;
+    align-items: center;
+    
+  }
+
+.card {
+    width: 500px;
+    height: 100%;
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: -webkit-transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), -webkit-transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 6px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    cursor: pointer;
+  }
+  .card div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 6px;
+    background: #fff;
+    display: -ms-flexbox;
+    display: box;
+    display: flex;
+    -o-box-pack: center;
+    justify-content: center;
+    -o-box-align: center;
+    align-items: center;
+    font: 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #47525d;
+  }
+  .card .back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+  .card.flipped {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+  .avatar {
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
