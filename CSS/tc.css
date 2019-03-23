@@ -1,0 +1,115 @@
+body {
+  padding: 100px;
+  align-content: center;
+}
+.container {
+  align-items: center;
+  padding-top: 50px;
+  align-content: center;
+}
+.range,.range1,.range2 {
+  position: relative;
+  width: 550px;
+  height: 5px;
+}
+
+.range input,.range1 input{
+  width: 100%;
+  position: absolute;
+  top: 2px;
+  height: 0;
+  -webkit-appearance: none;
+}
+.range input::-webkit-slider-thumb,.range1 input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: -8px 0  0;
+  border-radius: 50%;
+  background: #37adbf;
+  cursor: pointer;
+  border: 0 !important;
+}
+.range input::-moz-range-thumb,.range1 input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  margin: -8px 0  0;
+  border-radius: 50%;
+  background: #37adbf;
+  cursor: pointer;
+  border: 0 !important;
+}
+.range input::-ms-thumb,.range1 input::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  margin: -8px 0  0;
+  border-radius: 50%;
+  background: #37adbf;
+  cursor: pointer;
+  border: 0 !important;
+}
+.range input::-webkit-slider-runnable-track,.range1 input::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: #b2b2b2;
+}
+.range input::-moz-range-track,.range1 input::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: #b2b2b2;
+}
+.range input::-ms-track,.range1 input::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: #b2b2b2;
+}
+.range input:focus,.range1 input:focus {
+  background: none;
+  outline: none;
+}
+.range input::-ms-track,.range1 input::-ms-track,.range2 input::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+.range-labels,.range-labels1,.range-labels2 {
+  margin: 18px -41px 0;
+  padding: 0;
+  list-style: none;
+}
+.range-labels li,.range-labels1 li,.range-labels2 {
+  position: relative;
+  float: left;
+  width: 90.25px;
+  text-align: center;
+  color: #b2b2b2;
+  font-size: 14px;
+  cursor: pointer;
+}
+.range-labels li::before,.range-labels1 li::before {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  left: 0;
+  content: "";
+  margin: 0 auto;
+  width: 9px;
+  height: 9px;
+  background: #b2b2b2;
+  border-radius: 50%;
+}
+.range-labels .active,.range-labels1 .active,.range-labels2 .active {
+  color: #37adbf;
+}
+.range-labels .selected::before,.range-labels1 .selected::before,.range-labels2 .selected::before {
+  background: #37adbf;
+}
+.range-labels .active.selected::before,.range-labels1 .active.selected::before,.range-labels2 .active.selected::before {
+  display: none;
+}
