@@ -20,8 +20,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
 
 </head>
@@ -39,7 +40,7 @@ body {
     <div class="container">
         <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">  
         <!-- CARD1 -->
-        <div class="cardcontain">
+        <div class="cardcontain" style="height: 200px;">
             <div class="card">
                 <div class="front"><h4>Welcome to Easy-Transit</br><hr>Enter your current location and bus number</h4></div>
                 <div class="back">
@@ -69,28 +70,46 @@ body {
             while($row =$result->fetch_assoc()) {
                 $maxsit = $row['sittingcap'];
                 $maxstand = $row['standingcap'];
+                $status = $row['status'];
             }
 
-            $sql = "SELECT * from routes where busid = '$busID'";
+            $sql = "SELECT * from routes where busid = '$busID' AND routeid = '$start'";
             $result = $con->query($sql);
             while($row =$result->fetch_assoc()) {
-                $maxsit = $row['sittingcap'];
-                $maxstand = $row['standingcap'];
+                $arrtime = $row['arrtime'];
             }
 
             $availsit = $maxsit - $closesit;
             $availstand = $maxstand - $closestand;
             echo "
-                <div class='cardcontain'>
+                <div class='cardcontain' style='height: 300px;'>
                 <div class='card2'>
                     <div class='front'>
                         <h4>Bus Number : ".$busID." opted stop : ".$start."</br>
                         <hr>Available Seatings : ".$availsit."</br>
                         <hr>Available Standing : ".$availstand."</br>
-                        <hr>Bus will arrive at : </h4>
-                    </div>
+                        <hr>Bus will arrive at : ".$arrtime."</h4>
+                    </div>";
+
+                echo "
                     <div class='back'>
-                        
+                        <div class='progress'>";
+                $sql3 = "SELECT * from routes where busid = '$busID'";
+                $result3 = $con->query($sql3);
+                while($row =$result3->fetch_assoc()) {
+                    $stop = $row['routname'];
+                    $number = $row['routeid'];
+                    echo "
+                            <div class='circle active'>
+                            <span class='label'>".$number."</span>
+                            <span class='title'>".$stop."</span>
+                            </div>
+                            <span class='bar done'></span>
+                        ";
+                }
+                echo "
+                        </div>
+                        </div>
                     </div>
                 </div>
             ";
