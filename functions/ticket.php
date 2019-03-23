@@ -1,6 +1,6 @@
 <?php
 
-include ('database/db.php');
+include ('../database/db.php');
 
 $busID = 123;
 $startID = $_POST['start'];

@@ -1,0 +1,9 @@
+body {
+    background-image: url("https://media-cdn.tripadvisor.com/media/photo-s/0e/b3/e4/26/shuttle-bus-stop-at-marinoa.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+	-webkit-box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+	-webkit-box-orient: vertical;
+	overflow-x: hidden;
+}
