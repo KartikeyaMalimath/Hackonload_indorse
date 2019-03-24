@@ -96,16 +96,32 @@ body {
                         <div class='progress'>";
                 $sql3 = "SELECT * from routes where busid = '$busID'";
                 $result3 = $con->query($sql3);
+                $bar=1;
                 while($row =$result3->fetch_assoc()) {
                     $stop = $row['routname'];
                     $number = $row['routeid'];
+                    $seatavail = $row['sitting'];
+                    $standavail = $row['standing'];
+                    $times = $row['arrtime'];
+                    if($bar != 1) {
+                        echo "<span class='bar done'></span>";
+                    }
+                    if($number <= $status) {
+                        echo "<div class='circle done'>
+                        <span class='label'> </span>";
+                    } else {
+                        echo "<div class='circle active'>
+                             <span class='label'>".$number."</span>";
+                    }
                     echo "
-                            <div class='circle active'>
-                            <span class='label'>".$number."</span>
-                            <span class='title'>".$stop."</span>
+                                
+                                <span class='title'>".$stop."</span>
+                                <span class='title'>seat : ".$seatavail."</span>
+                                <span class='title'>seat : ".$standavail."</span>
+                                <span class='title'>".$times."</span>
                             </div>
-                            <span class='bar done'></span>
                         ";
+                        $bar++;
                 }
                 echo "
                         </div>
@@ -113,6 +129,7 @@ body {
                     </div>
                 </div>
             ";
+            
           }
         ?>
 
