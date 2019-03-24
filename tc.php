@@ -148,17 +148,7 @@ body {
   <body>
     <ul class="chart">
 	    <li class="axis">
-        <div class="label">10</div>
-        <div class="label">9</div>
-        <div class="label">8</div>
-        <div class="label">7</div>
-        <div class="label">6</div>
-        <div class="label">5</div>
-        <div class="label">4</div>
-        <div class="label">3</div>
-        <div class="label">2</div>
-        <div class="label">1</div>
-      </li>
+        
       <?php
         include ('database/db.php');
         if(!$_GET) {
@@ -182,18 +172,34 @@ body {
             ";
         } else {
           $busID = $_GET['busno'];
-          $sql3 = "SELECT * from routes where busid = '$busID'";
+          $sql3 = "SELECT * from bus where busid = '$busID'";
                 $result3 = $con->query($sql3);
-                $bar=1;
+                while($row =$result3->fetch_assoc()) {
+                  $maxst = $row['sittingcap'];
+                }
+                $ct = $maxst;
+                while($ct >= 0) {
+                  echo "
+                    <div class='label'>$ct</div>
+                  ";
+                  $ct = $ct-5;
+                }
+                echo "</li>";
+                $sql3 = "SELECT * FROM routes WHERE busid = '$busID'";
+                $result3 = $con->query($sql3);  
                 while($row =$result3->fetch_assoc()) {
                   $totalsit = $row['sitting'];
                   $name = $row['routname'];
-          echo "
-      <li class='bar teal' style='height: 90%;' title='90'>
-        <div class='percent'>".$totalsit."</div>
-        <div class='skill'>".$name."</div>
-      </li>
-      ";}?>
+                  $perc = ($totalsit/$maxst)*100;
+                  echo "
+                  <li class='bar teal' style='height:".$perc."% ;' title='90'>
+                    <div class='percent'>".$totalsit."</div>
+                    <div class='skill'>".$name."</div>
+                  </li>
+                  ";
+                  }
+            }
+      ?>
     </ul>
         <script src="js/user.js"></script>
   </body>
