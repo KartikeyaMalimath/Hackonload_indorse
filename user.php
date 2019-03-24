@@ -77,6 +77,7 @@ body {
             $result = $con->query($sql);
             while($row =$result->fetch_assoc()) {
                 $arrtime = $row['arrtime'];
+                $ruid = $row['ruid'];
             }
 
             $availsit = $maxsit - $closesit;
@@ -103,6 +104,8 @@ body {
                     $seatavail = $row['sitting'];
                     $standavail = $row['standing'];
                     $times = $row['arrtime'];
+                    $dispsit = $maxsit - $seatavail;
+                    $dispstand = $maxstand - $standavail;
                     if($bar != 1) {
                         echo "<span class='bar done'></span>";
                     }
@@ -116,8 +119,8 @@ body {
                     echo "
                                 
                                 <span class='title'>".$stop."</span>
-                                <span class='title'>seat : ".$seatavail."</span>
-                                <span class='title'>seat : ".$standavail."</span>
+                                <span class='title'>seat : ".$dispsit."</span>
+                                <span class='title'>stand : ".$dispstand."</span>
                                 <span class='title'>".$times."</span>
                             </div>
                         ";
@@ -129,6 +132,85 @@ body {
                     </div>
                 </div>
             ";
+
+            $sql4 = "SELECT * from routes where ruid = '$ruid' And busid != '$busID'";
+                $result4 = $con->query($sql4);
+                while($row =$result4->fetch_assoc()) {
+                    $altbusid = $row['busid'];
+                    $closesit = $row['sitting'];
+                    $closestand = $row['standing'];
+
+
+                $sql = "SELECT * from bus where busid = '$altbusid'";
+                $result = $con->query($sql);
+                while($row =$result->fetch_assoc()) {
+                    $maxsit = $row['sittingcap'];
+                    $maxstand = $row['standingcap'];
+                    $status = $row['status'];
+                }
+
+                $sql = "SELECT * from routes where busid = '$altbusid' AND routeid = '$start'";
+                $result = $con->query($sql);
+                while($row =$result->fetch_assoc()) {
+                    $arrtime = $row['arrtime'];
+                    $ruid = $row['ruid'];
+                }
+
+                $availsit = $maxsit - $closesit;
+                $availstand = $maxstand - $closestand;
+                echo "
+                    <div class='cardcontain' style='height: 300px;'>
+                    <div class='card2'>
+                        <div class='front'>
+                            <h4>Bus Number : ".$altbusid." opted stop : ".$start."</br>
+                            <hr>Available Seatings : ".$availsit."</br>
+                            <hr>Available Standing : ".$availstand."</br>
+                            <hr>Bus will arrive at : ".$arrtime."</h4>
+                        </div>";
+
+                    echo "
+                        <div class='back'>
+                            <div class='progress'>";
+                    $sql3 = "SELECT * from routes where busid = '$altbusid'";
+                    $result3 = $con->query($sql3);
+                    $bar=1;
+                    while($row =$result3->fetch_assoc()) {
+                        $stop = $row['routname'];
+                        $number = $row['routeid'];
+                        $seatavail = $row['sitting'];
+                        $standavail = $row['standing'];
+                        $times = $row['arrtime'];
+                        $dispsit = $maxsit - $seatavail;
+                        $dispstand = $maxstand - $standavail;
+                        if($bar != 1) {
+                            echo "<span class='bar done'></span>";
+                        }
+                        if($number <= $status) {
+                            echo "<div class='circle done'>
+                            <span class='label'> </span>";
+                        } else {
+                            echo "<div class='circle active'>
+                                <span class='label'>".$number."</span>";
+                        }
+                        echo "
+                                    
+                                    <span class='title'>".$stop."</span>
+                                    <span class='title'>seat : ".$dispsit."</span>
+                                    <span class='title'>stand : ".$dispstand."</span>
+                                    <span class='title'>".$times."</span>
+                                </div>
+                            ";
+                            $bar++;
+                    }
+                    echo "
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                ";
+
+
+                }
             
           }
         ?>
